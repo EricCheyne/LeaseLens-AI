@@ -1,316 +1,97 @@
-# AI-Lease-Financial-Workflow-Automation-SaaS
+# LeaseLensAI
+**AI Lease Financial Workflow Automation SaaS**
 
-🎯 Why This Wins (Strategically)
-Factor	Why It’s Strong
-Pain Level	Lease abstraction is brutally manual
-Budget	Property managers already pay for software
-AI Fit	NLP + structured extraction = perfect
-Expansion	Can grow into full asset accounting
-Differentiation	Niche vertical, not generic AI SaaS
+LeaseLensAI is a multi-tenant platform designed to automate the painful process of lease abstraction and financial reconciliation for property managers and asset managers. By leveraging AI-driven extraction and structured financial modeling, it transforms manual PDF-based workflows into automated, error-free accounting operations.
 
-This is not hype AI.
-This is operational AI.
+---
 
-🧠 Technical Architecture (Elite but Practical)
-Backend (Recommended Stack)
+## 🏗 Architecture
 
-FastAPI + PostgreSQL + pgvector
+LeaseLensAI follows a modern, scalable multi-tenant architecture:
 
-Why FastAPI over Spring Boot for this specific project?
+- **Frontend:** Next.js + Tailwind CSS (Responsive Dashboard)
+- **Backend:** FastAPI (Python) - High-performance asynchronous API
+- **Database:** PostgreSQL + `pgvector` (Structured data + Semantic Search)
+- **Storage:** AWS S3 (Secure document storage)
+- **AI/ML:** LLM-based extraction (NLP) and chunking pipelines
+- **Workers:** Background processing for PDF parsing and forecasting
+- **Auth:** Multi-tenant isolation with Row-Level Security (RLS)
 
-FastAPI	Spring Boot
-Faster to build solo	Slower solo velocity
-Native Python AI stack	Java ML stack more complex
-pgvector integration easy	More setup
-Great for background jobs	Stronger corporate optics
+---
 
-Since you're building AI extraction + embeddings →
-FastAPI is strategically better for MVP speed + AI integration.
+## ⚙️ Services
 
-If your goal is Java enterprise signaling → Spring Boot later.
+- **API Service:** Handles authentication, multi-tenant logic, and CRUD operations.
+- **Extraction Engine:** Asynchronous worker that processes PDF uploads, extracts key terms, and generates embeddings.
+- **Financial Engine:** Generates amortized payment schedules, escalation projections, and reconciliation reports.
+- **Search Service:** Vector-based semantic search across lease documents.
 
-🧱 High-Level Architecture
-Client (Next.js)
-        ↓
-FastAPI (Multi-tenant API)
-        ↓
-PostgreSQL (Structured Data)
-        ↓
-pgvector (Embeddings for semantic search)
-        ↓
-Background Workers (Lease parsing + forecasting)
-        ↓
-S3 (Document storage)
-🚀 Core Feature Breakdown (Realistic MVP)
-1️⃣ Lease Upload & Storage
+---
 
-Upload PDF
+## 🛠 Local Development
 
-Store in S3
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- PostgreSQL with `pgvector` extension
+- Docker (optional, for local services)
 
-Save metadata in DB
+### Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/LeaseLens-AI.git
+   cd LeaseLens-AI
+   ```
 
-Multi-tenant isolation
+2. **Backend Setup:**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   uvicorn main:app --reload
+   ```
 
-2️⃣ AI Lease Abstraction
+3. **Frontend Setup:**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-Pipeline:
+---
 
-Extract raw text from PDF
+## 🔑 Environment Variables
 
-Chunk document
+Create a `.env` file in both `backend/` and `frontend/` directories.
 
-Extract structured fields:
+**Backend (.env):**
+- `DATABASE_URL`: PostgreSQL connection string
+- `AWS_S3_BUCKET`: Storage bucket name
+- `OPENAI_API_KEY`: For AI extraction and embeddings
+- `SECRET_KEY`: JWT signing key
 
-Tenant Name
+**Frontend (.env):**
+- `NEXT_PUBLIC_API_URL`: Backend API endpoint
 
-Base Rent
+---
 
-Escalation %
+## 🚀 Roadmap
 
-Lease Term
+### Phase 1: MVP (Core Extraction)
+- [ ] Multi-tenant Auth & Organization management
+- [ ] Secure PDF upload to S3
+- [ ] AI-powered extraction (Base Rent, Term, Escalations)
+- [ ] Structured Lease Dashboard
 
-CAM Charges
+### Phase 2: Financial Automation
+- [ ] Amortized Payment Schedule Engine
+- [ ] Rent Roll Reconciliation Tool
+- [ ] Basic 12-month Revenue Forecasting
 
-Renewal Options
-
-Security Deposit
-
-Payment frequency
-
-Store structured result in DB.
-
-Optional:
-Store embedding for semantic search:
-
-“Show leases with CPI escalations above 4%”
-
-3️⃣ Structured Lease Dashboard
-
-Frontend:
-
-Table view
-
-Filters
-
-Per-property breakdown
-
-Lease summary cards
-
-4️⃣ Payment Schedule Engine
-
-Generate:
-
-Month 1: $12,000
-Month 13: $12,600 (5% escalation)
-...
-
-Store amortized schedule table.
-
-Now you're in accounting territory.
-
-5️⃣ Reconciliation Helper
-
-Upload:
-
-Rent roll (Excel)
-
-System compares:
-
-Expected rent (from lease)
-
-Actual collected rent
-
-Flag mismatches.
-
-THIS is where property managers feel the value.
-
-6️⃣ Forecasting
-
-Basic:
-
-12-month revenue forecast
-
-Vacancy impact
-
-Escalation projection
-
-Advanced:
-
-Monte Carlo rent risk simulation
-
-7️⃣ Export to Excel
-
-Enterprise users love:
-
-Download structured lease
-
-Download forecast
-
-Download payment schedule
-
-8️⃣ Audit Log (Enterprise Feel)
-
-Every action logged:
-
-Lease uploaded
-
-Terms modified
-
-Forecast recalculated
-
-This makes it feel serious.
-
-🏗 Multi-Tenant Architecture (Important for You)
-
-Tables:
-
-organizations
-users
-leases
-lease_terms
-payment_schedules
-reconciliations
-audit_logs
-documents
-
-Every table:
-
-organization_id
-
-Row-level isolation.
-
-💰 Monetization Model
-Tier	Price	Target
-Starter	$149/mo	Small PM
-Pro	$399/mo	Mid-size firm
-Enterprise	$1,200+/mo	Asset manager
-
-Charge per:
-
-Number of leases
-
-Number of properties
-
-AI processing credits
-
-B2B margins are strong.
-
-🧠 Why This Fits You Specifically
-
-You:
-
-Understand double-entry logic
-
-Know real estate cash flow
-
-Care about system design
-
-Want serious SaaS
-
-Want AI that isn't gimmicky
-
-This is not “chatbot startup”.
-
-This is operational fintech SaaS.
-
-🏁 If You Want to Build This Smartly
-
-Phase 1 (4–6 weeks)
-
-Auth
-
-Multi-tenant DB
-
-Lease upload
-
-AI extraction (basic)
-
-Dashboard
-
-Phase 2
-
-Payment engine
-
-Reconciliation tool
-
-Forecasting
-
-Phase 3
-
-Enterprise polish
-
-Audit trail
-
-Permissions
-
-SOC2-friendly logging
-
-🔥 Resume Impact (Massive)
-
-Instead of:
-
-“Built full-stack SaaS”
-
-You say:
-
-“Engineered AI-powered lease abstraction and reconciliation platform for multi-tenant real estate portfolios, integrating NLP extraction, vector search, amortized payment modeling, and revenue forecasting.”
-
-That hits:
-
-AI
-
-Finance
-
-SaaS
-
-Data modeling
-
-Enterprise architecture
-
-🧭 Final Recommendation
-
-✅ Use FastAPI
-✅ Use PostgreSQL + pgvector
-✅ Use Next.js
-✅ Keep scope tight
-✅ Target property managers first
-
-
-
-
-## Why this one?
-Because:
-Real estate & accounting workflows are painful
-Lease abstraction is time-consuming
-Excel-driven accounting is messy
-Property managers hate reconciliation
-AI adds real value here
-B2B clients pay
-
-## This leverages:
-Your finance brain
-Your systems thinking
-AI practically (not hype)
-Multi-tenant SaaS architecture
-It’s niche enough to stand out.
-But enterprise enough to look serious.
-
-## What It Looks Like Technically
-Backend:
-FastAPI (multi-tenant, background jobs, pgvector)
-OR 
-Spring Boot if you want Java enterprise positioning
-
-Frontend:
-Next.js + Tailwind
-
-## Core Features:
-Upload lease PDFs
-Extract key terms (AI)
-Structured lease dashboard
-Payment schedule tracking
-Simple forecasting
-Export to Excel
-Audit log
+### Phase 3: Enterprise & Scaling
+- [ ] Advanced Monte Carlo Risk Simulation
+- [ ] Full Audit Trails & SOC2 Logging
+- [ ] Export to Excel/ERP (Yardi, MRI integration)
+- [ ] Semantic search across portfolio documents
 
